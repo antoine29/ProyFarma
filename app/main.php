@@ -28,15 +28,15 @@
 
         <div align="center">
 
-            <a class="btn btn-info" href="<?php echo Farmacia::baseurl() ?>app/2listaFarmacia.php?>">
+            <a class="btn btn-info" href="<?php echo Farmacia::baseurl() ?>app/2listaFarmacia.php">
             Listar farmacias
             </a> 
 
-            <a class="btn btn-info" href="<?php echo Medicamento::baseurl() ?>app/listaMedicamento.php?>">
+            <a class="btn btn-info" href="<?php echo Medicamento::baseurl() ?>app/listaMedicamento.php">
                 Listar medicamentos
             </a> 
 
-            <a class="btn btn-info" href="<?php echo Prescripcion::baseurl() ?>app/listaPrescripcion.php?>">
+            <a class="btn btn-info" href="<?php echo Prescripcion::baseurl() ?>app/listaPrescripcion.php">
             Listar prescripciones
             </a>
 
@@ -124,6 +124,22 @@
                         </form>
                     </td>
 
+                </tr>
+
+                <tr>
+                    <td>
+                        <h5 class="text-primary">Buscar prescripcion que incluyan el medicamento</h3>
+                        <form action="<?php echo Farmacia::baseurl() ?>app/listaBuscaPresPorEstablecimiento.php" method='POST'>         
+                            
+                            <div class="form-group">
+                                <input type="text" name="nombreestablecimiento" value="" class="form-control" id="nombreestablecimiento" placeholder="nombre del establecimiento">
+                            </div>
+
+                            <input type="submit" name="submit" class="btn btn-default" value="Buscar prescripciones" />
+
+                        </form>
+                        
+                    </td>
                 </tr>
             </table> 
 

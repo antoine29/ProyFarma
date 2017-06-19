@@ -4,7 +4,7 @@ $db = new Database;
 $medicamento = new Medicamento($db);
 $id = filter_input(INPUT_GET, 'medicamento', FILTER_VALIDATE_INT);
 
-if( $id )
+if( is_int($id) )
 {
     $medicamento->setId($id);
     $medicamento->delete();

@@ -13,11 +13,32 @@
     {
         header("Location:" . Medicamento::baseurl() . "app/listaMedicamento.php");
     }
+
+    $idmedicamento;
+    $nombre;
+    $descripcion;
+    $dosis;
+    $tipo;
+
     $db = new Database;
     $newMedicamento = new Medicamento($db);
     $newMedicamento->setId($id);
+    
     $medicamento = $newMedicamento->get();
-    $newMedicamento->checkMedicamento($medicamento);
+    
+    if( ! empty( $medicamento ) ){
+        foreach( $medicamento as $m ){
+            $idmedicamento=$m->idmedicamento;
+            $nombre=$m->nombre;
+            $descripcion=$m->descripcion;
+            $dosis=$m->dosis;
+            $tipo=$m->tipo;
+        }
+    }
+    else{
+        echo "NADA";     
+    }    
+
     ?>
     <div class="container">
         <div class="col-lg-12">
@@ -25,21 +46,21 @@
             <form action="<?php echo Medicamento::baseurl() ?>app/updateMedicamento.php" method="POST">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" value="" class="form-control" id="nombre" placeholder="Nombre">
+                    <input type="text" name="nombre" value="<?php echo $nombre ?>" class="form-control" id="nombre" placeholder="Nombre">
                 </div>
                 <div class="form-group">
                     <label for="direccion">Descripcion</label>
-                    <input type="descripcion" name="descripcion" value="" class="form-control" id="descripcion" placeholder="Descripcion">
+                    <input type="descripcion" name="descripcion" value="<?php echo $descripcion ?>" class="form-control" id="descripcion" placeholder="Descripcion">
                 </div>
                 <div class="form-group">
                     <label for="dosis">Dosis</label>
-                    <input type="dosis" name="dosis" value="" class="form-control" id="dosis" placeholder="Dosis">
+                    <input type="dosis" name="dosis" value="<?php echo $dosis ?>" class="form-control" id="dosis" placeholder="Dosis">
                 </div>
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
-                    <input type="tipo" name="tipo" value="" class="form-control" id="tipo" placeholder="Tipo">
+                    <input type="tipo" name="tipo" value="<?php echo $tipo ?>" class="form-control" id="tipo" placeholder="Tipo">
                 </div>
-                <input type="hidden" name="idmedicamento" value="<?php echo $medicamento->idmedicamento ?>" />
+                <input type="hidden" name="idmedicamento" value="<?php echo $idmedicamento ?>" />
                 <input type="submit" name="submit" class="btn btn-default" value="Actualizar medicamento" />
             </form>
         </div>

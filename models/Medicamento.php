@@ -89,7 +89,7 @@ class Medicamento implements IUser
         try{
             if(is_int($this->idmedicamento))
             {
-                $query = $this->con->prepare('SELECT * FROM medicamento WHERE idmedicamento = ?');
+                $query = $this->con->prepare('SELECT * FROM medicamento WHERE idmedicamento = ? ORDER BY idmedicamento');
                 $query->bindParam(1, $this->idmedicamento, PDO::PARAM_INT);
                 $query->execute();
                 $this->con->close();
@@ -97,7 +97,7 @@ class Medicamento implements IUser
             }
             else
             {
-                $query = $this->con->prepare('SELECT * FROM medicamento');
+                $query = $this->con->prepare('SELECT * FROM medicamento ORDER BY idmedicamento');
                 $query->execute();
                 $this->con->close();
                 return $query->fetchAll(PDO::FETCH_OBJ);
@@ -163,6 +163,15 @@ class Medicamento implements IUser
     public function delete()
     {
         try{
+            $query = $this->con->prepare('DELETE FROM medicamentofabricante WHERE idmedicamento = ?');
+            $query->bindParam(1, $this->idmedicamento, PDO::PARAM_INT);
+            $query->execute();
+            $query = $this->con->prepare('DELETE FROM prescripcion WHERE idmedicamento = ?');
+            $query->bindParam(1, $this->idmedicamento, PDO::PARAM_INT);
+            $query->execute();
+            $query = $this->con->prepare('DELETE FROM medicamentofarmacia WHERE idmedicamento = ?');
+            $query->bindParam(1, $this->idmedicamento, PDO::PARAM_INT);
+            $query->execute();
             $query = $this->con->prepare('DELETE FROM medicamento WHERE idmedicamento = ?');
             $query->bindParam(1, $this->idmedicamento, PDO::PARAM_INT);
             $query->execute();

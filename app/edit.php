@@ -5,19 +5,24 @@
     <title>Listado de usuarios</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
 </head>
+
 <body>
     <?php
-    require_once "../models/User.php";
-    $id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT);
-    if( ! $id )
-    {
-        header("Location:" . User::baseurl() . "app/list.php");
-    }
-    $db = new Database;
-    $newUser = new User($db);
-    $newUser->setId($id);
-    $user = $newUser->get();
-    $newUser->checkUser($user);
+        echo "llego";
+        $id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT);
+        echo "llego  ".$id;
+        
+        require_once "../models/User.php";
+        $id = filter_input(INPUT_GET, 'user', FILTER_VALIDATE_INT);
+        if( ! $id ){
+            header("Location:" . User::baseurl() . "app/list.php");
+        }
+        $db = new Database;
+        $newUser = new User($db);
+        $newUser->setId($id);
+        $user = $newUser->get();
+        $newUser->checkUser($user);
+        
     ?>
     <div class="container">
         <div class="col-lg-12">
@@ -36,5 +41,7 @@
             </form>
         </div>
     </div>
+
+    
 </body>
 </html>

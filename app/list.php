@@ -2,19 +2,21 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Listado de farmacias</title>
+        <title>Lista</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     </head>
     <body>
         <?php
-        require_once "../models/Farmacia.php";
+        require_once "../models/User.php";
+        $url;
+        $id;
         $db = new Database;
-        $farmacia = new Farmacia($db);
-        $farmacias = $farmacia->get();
+        $user = new User($db);
+        $users = $user->get();
         ?>
         <div class="container">
             <div class="col-lg-12">
-                <h2 class="text-center text-primary">Farmacias</h2>
+                <h2 class="text-center text-primary">Users</h2>
                 <div class="col-lg-1 pull-right" style="margin-bottom: 10px">
                     <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/add.php">Add user</a>
                 </div>
@@ -40,8 +42,15 @@
                             <td><?php echo $user->lat ?></td>
                             <td><?php echo $user->long ?></td>
                             <td>
-                                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/edit.php?user=<?php echo $user->id ?>">Edit</a> 
-                                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/delete.php?user=<?php echo $user->id ?>">Delete</a>
+                                <?php
+                                    $url=User::baseurl()."app/edit.php";
+                                    $id=$user->id;
+                                    //echo $url;
+                                ?>
+                                <a class="btn btn-info" href="<?php echo User::baseurl()?>app/edit.php?user=<?php echo $user->id ?>">
+                                    Edit
+                                </a> 
+                                <a class="btn btn-info" href="<?php echo User::baseurl() ?>app/delete.php?user="<?php echo $user->id ?>">Delete</a>
                             </td>
                         </tr>
                     <?php

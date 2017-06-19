@@ -47,6 +47,30 @@ class Farmacia implements IUser
         $this->telefono = $tele;
     }
 
+    public function getId(){
+        return $this->idfarmacia;
+    }
+
+    public function getNombre(){
+        return $this->nombre;
+    }
+
+    public function getDireccion(){
+        return $this->direccion;
+    }
+
+    public function getTelefono(){
+        return $this->telefono;
+    }
+
+    public function getLat(){
+        return $this->lat;
+    }
+
+    public function getLong(){
+        return $this->long;
+    }
+
     //insertamos farmacias en una tabla con postgreSql
     public function save()
     {
@@ -92,7 +116,7 @@ class Farmacia implements IUser
         try{
             if(is_int($this->idfarmacia))
             {
-                $query = $this->con->prepare('SELECT * FROM farmacia WHERE idfarmacia = ?');
+                $query = $this->con->prepare('SELECT * FROM farmacia WHERE idFarmacia = ? ORDER BY idFarmacia');
                 $query->bindParam(1, $this->idfarmacia, PDO::PARAM_INT);
                 $query->execute();
                 $this->con->close();
@@ -100,7 +124,7 @@ class Farmacia implements IUser
             }
             else
             {
-                $query = $this->con->prepare('SELECT * FROM farmacia');
+                $query = $this->con->prepare('SELECT * FROM farmacia ORDER BY idFarmacia');
                 $query->execute();
                 $this->con->close();
                 return $query->fetchAll(PDO::FETCH_OBJ);
@@ -115,6 +139,9 @@ class Farmacia implements IUser
     public function delete()
     {
         try{
+            $query = $this->con->prepare('DELETE FROM medicamentofarmacia WHERE idfarmacia = ?');
+            $query->bindParam(1, $this->idfarmacia, PDO::PARAM_INT);
+            $query->execute();
             $query = $this->con->prepare('DELETE FROM Farmacia WHERE idfarmacia = ?');
             $query->bindParam(1, $this->idfarmacia, PDO::PARAM_INT);
             $query->execute();
@@ -125,6 +152,7 @@ class Farmacia implements IUser
         {
             echo  $e->getMessage();
         }
+        return false;
     }
 
     public static function baseurl()
